@@ -82,6 +82,14 @@ requires-python = ">=3.10"
             f.write(content)
         print(f"📄 Created file: {full_file_path}")
 
+    # After all files are created, add .gitkeep to any empty directories
+    for folder in project_structure:
+        full_path = os.path.join(base_path, folder)
+        if not os.listdir(full_path):
+            gitkeep_path = os.path.join(full_path, ".gitkeep")
+            with open(gitkeep_path, "w", encoding="utf-8") as f:
+                pass
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Open Finance Lakehouse project setup.")
     parser.add_argument("--config_file", type=str, help="Path to the JSON configuration file.")
